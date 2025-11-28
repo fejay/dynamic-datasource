@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -9,10 +7,17 @@
         <version>4.3.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-    <url>
-        https://github.com/baomidou/dynamic-datasource-spring-boot-starter/tree/master/dynamic-datasource-spring-boot-starter
-    </url>
+    <artifactId>dynamic-datasource-spring-boot4-starter</artifactId>
+    <packaging>jar</packaging>
+
+    <name>dynamic-datasource-spring-boot4-starter</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>21</java.version>
+        <spring-boot-dependencies.version>4.0.0</spring-boot-dependencies.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -26,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
+            <artifactId>druid-spring-boot-4-starter</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -51,8 +56,28 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>${native-maven-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

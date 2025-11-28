@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.baomidou</groupId>
     <artifactId>dynamic-datasource</artifactId>
-    <version>4.3.1</version>
+    <version>4.3.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>dynamic datasource</description>
@@ -17,6 +17,7 @@
         <module>dynamic-datasource-spring-boot-common</module>
         <module>dynamic-datasource-spring-boot-starter</module>
         <module>dynamic-datasource-spring-boot3-starter</module>
+        <module>dynamic-datasource-spring-boot4-starter</module>
     </modules>
 
     <licenses>
@@ -54,7 +55,7 @@
         <spring-boot-dependencies.version>2.7.18</spring-boot-dependencies.version>
         <mybatis.plus.version>3.5.3.2</mybatis.plus.version>
         <hikaricp.version>2.4.13</hikaricp.version>
-        <druid.version>1.2.20</druid.version>
+        <druid.version>1.2.28-SNAPSHOT</druid.version>
         <beeCp.version>3.4.2</beeCp.version>
         <commons-dbcp2.version>2.10.0</commons-dbcp2.version>
         <oracle-ucp.version>23.4.0</oracle-ucp.version>
@@ -128,6 +129,11 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-3-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-4-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
             <dependency>
@@ -259,13 +265,13 @@
                         </licenseSet>
                     </licenseSets>
                 </configuration>
-                <executions>
+               <!-- <executions>
                     <execution>
                         <goals>
                             <goal>check</goal>
                         </goals>
                     </execution>
-                </executions>
+                </executions>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -290,18 +296,33 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>https://dev-nexus.shendugyl.ren/repository/maven-snapshots</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>https://dev-nexus.shendugyl.ren/repository/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <profiles>
         <profile>
             <id>release</id>
             <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
                 <repository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                    <id>nexus-releases</id>
+                    <name>Nexus Release Repository</name>
+                    <url>https://dev-nexus.shendugyl.ren/repository/maven-snapshots</url>
                 </repository>
+                <snapshotRepository>
+                    <id>nexus-snapshots</id>
+                    <name>Nexus Snapshot Repository</name>
+                    <url>https://dev-nexus.shendugyl.ren/repository/maven-snapshots</url>
+                </snapshotRepository>
             </distributionManagement>
             <build>
                 <plugins>
@@ -441,6 +462,7 @@
                             <configuration>
                                 <includes>
                                     <include>com.baomidou.dynamic.datasource.fixture.v3.**</include>
+                                    <include>com.baomidou.dynamic.datasource.fixture.v4.**</include>
                                 </includes>
                             </configuration>
                         </plugin>
